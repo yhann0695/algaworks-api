@@ -8,6 +8,7 @@ public class AlgaworksApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AlgaworksApiApplication.class, args);
+		System.out.println("teste");
 	}
 
 }
