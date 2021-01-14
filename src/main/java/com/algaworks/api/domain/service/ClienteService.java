@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.algaworks.api.domain.exceptions.NegocioException;
+import com.algaworks.api.domain.exceptions.NotFoundException;
 import com.algaworks.api.domain.model.Cliente;
 import com.algaworks.api.domain.repository.IClienteRepository;
 
@@ -55,7 +56,7 @@ public class ClienteService {
 	private void verificarExistenciaCliente(Long id) {
 		boolean isExists = clienteRepository.existsById(id);
 		if(!isExists) {
-			throw new NegocioException("Cliente não encontrado");
+			throw new NotFoundException("Cliente não encontrado");
 		}
 	}
 	

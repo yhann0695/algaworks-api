@@ -1,6 +1,7 @@
 package com.algaworks.api.domain.exceptions;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +28,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	private MessageSource messageSource;
 	
 	@ExceptionHandler(NegocioException.class)
-	public ResponseEntity<Object> handleNegocio(NegocioException ex, WebRequest request) {
-		HttpStatus status = HttpStatus.BAD_REQUEST;
-		ProblemaExceptions problema = setarProblema(status, ex.getMessage());
-		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+	protected ResponseEntity<Object> handleSecurity(NegocioException ex, WebRequest request) {
+		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR,
+				request);
 	}
+	
+	@ExceptionHandler(NotFoundException.class)
+	protected ResponseEntity<Object> handleSecurity(NotFoundException ex, WebRequest request) {
+		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST,
+				request);
+	}
+	
+	
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -56,7 +64,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		ProblemaExceptions problema = new ProblemaExceptions();
 		problema.setStatus(status.value());
 		problema.setTitulo("Um ou mais campos estão inválidos, Faça o preenchimento correto e tente novamente");
-		problema.setDataHora(LocalDateTime.now());
+		problema.setDataHora(OffsetDateTime.now());
 		return problema;
 	}
 }
