@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.api.domain.model.Cliente;
-import com.algaworks.api.service.ClienteService;
+import com.algaworks.api.domain.service.ClienteService;
 
 import io.swagger.annotations.ApiOperation;
 

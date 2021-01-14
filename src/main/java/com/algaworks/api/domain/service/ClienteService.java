@@ -1,4 +1,4 @@
-package com.algaworks.api.service;
+package com.algaworks.api.domain.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.algaworks.api.domain.exceptions.NegocioException;
 import com.algaworks.api.domain.model.Cliente;
 import com.algaworks.api.domain.repository.IClienteRepository;
-import com.algaworks.api.exceptions.NegocioExpcetion;
 
 @Service
 public class ClienteService {
@@ -32,25 +32,38 @@ public class ClienteService {
 
 	@Transactional
 	public Cliente inserir(Cliente cliente) {
+		this.validarEmail(cliente);
+		return clienteRepository.save(cliente);
+	}
+
+
+	@Transactional
+	public Cliente atualizar(Cliente cliente) {
+		this.verificarExistenciaCliente(cliente.getId());
 		return clienteRepository.save(cliente);
 	}
 
 	@Transactional
-	public Cliente atualizar(Cliente cliente) {
-		boolean isExists = clienteRepository.existsById(cliente.getId());
-		if(!isExists) {
-			throw new NegocioExpcetion("Cliente não encontrado");
-		}
-		return clienteRepository.save(cliente);
-	}
-
 	public Long excluir(Long id) {
-		boolean isExists = clienteRepository.existsById(id);
-		if(!isExists) {
-			throw new NegocioExpcetion("Cliente não encontrado");
-		}
+		this.verificarExistenciaCliente(id);
 		clienteRepository.deleteById(id);
 		return id;
+	}
+
+	// VALIDAÇÕES
+	
+	private void verificarExistenciaCliente(Long id) {
+		boolean isExists = clienteRepository.existsById(id);
+		if(!isExists) {
+			throw new NegocioException("Cliente não encontrado");
+		}
+	}
+	
+	private void validarEmail(Cliente cliente) {
+		Cliente clienteExistente = clienteRepository.findByEmail(cliente.getEmail());
+		if(clienteExistente != null && !clienteExistente.equals(cliente)) {
+			throw new NegocioException("Já existe um cliente cadastrado com esse e-mail");
+		}
 	}
 	
 	
