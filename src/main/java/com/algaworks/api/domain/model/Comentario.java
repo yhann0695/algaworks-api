@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.algaworks.api.domain.model.dto.OrdemServicoDTO;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,6 +22,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(name = "TB_COMENTARIO")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Comentario implements Serializable{
 
@@ -30,7 +34,7 @@ public class Comentario implements Serializable{
 	@Column(name = "CO_COMENTARIO")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CO_ORDEMSERVICO")
 	private OrdemServico ordemServico;
 	

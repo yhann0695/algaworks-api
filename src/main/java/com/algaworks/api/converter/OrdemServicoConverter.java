@@ -24,6 +24,7 @@ public class OrdemServicoConverter {
 		ordem.setDataAbertura(dto.getDataAbertura());
 		ordem.setDataFinalizacao(dto.getDataFinalizacao());
 		ordem.setStatus(dto.getStatus());
+		ordem.setComentarios(dto.getComentarios());
 		return ordem;
 	}
 	
@@ -34,8 +35,9 @@ public class OrdemServicoConverter {
 		dto.setDescricao(ordem.getDescricao());
 		dto.setPreco(ordem.getPreco());
 		dto.setDataAbertura(ordem.getDataAbertura());
-		dto.setDataFinalizacao(dto.getDataFinalizacao());
-		dto.setStatus(dto.getStatus());
+		dto.setDataFinalizacao(ordem.getDataFinalizacao());
+		dto.setStatus(ordem.getStatus());
+		dto.setComentarios(ordem.getComentarios());
 		return dto;
 	}
 	

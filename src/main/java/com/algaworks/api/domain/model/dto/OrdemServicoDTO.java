@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.algaworks.api.domain.model.Comentario;
 import com.algaworks.api.domain.model.enums.StatusOrdemServico;
 
 import lombok.Getter;
@@ -35,5 +37,7 @@ public class OrdemServicoDTO implements Serializable{
 	private OffsetDateTime dataAbertura;
 	
 	private OffsetDateTime dataFinalizacao;
+	
+	private List<Comentario> comentarios;
 	
 }
