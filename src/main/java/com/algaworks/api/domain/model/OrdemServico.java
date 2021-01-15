@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,17 +39,14 @@ public class OrdemServico implements Serializable{
 	@Column(name = "CO_ORDEMSERVICO")
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CO_CLIENTE")
-	@NotNull
 	private Cliente cliente;
 	
 	@Column(name = "DS_ORDEMSERVICO")
-	@NotNull
 	private String descricao;
 	
 	@Column(name = "VL_ORDEMSERVICO")
-	@NotNull
 	private BigDecimal preco;
 	
 	@Column(name = "IC_STATUS")

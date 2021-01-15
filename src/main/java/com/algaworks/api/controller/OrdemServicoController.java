@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.api.domain.model.OrdemServico;
+import com.algaworks.api.domain.model.dto.OrdemServicoDTO;
 import com.algaworks.api.domain.service.OrdemServicoService;
 
 import io.swagger.annotations.ApiOperation;
@@ -29,19 +30,19 @@ public class OrdemServicoController {
 	
 	@ApiOperation(value = "Endpoint para inserir uma ordem de servico no banco de dados")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<OrdemServico> inserir(@Valid @RequestBody OrdemServico ordem) {
-		return ResponseEntity.ok(ordemServico.inserir(ordem));
+	public ResponseEntity<OrdemServicoDTO> inserir(@Valid @RequestBody OrdemServicoDTO ordemDTO) {
+		return ResponseEntity.ok(ordemServico.inserir(ordemDTO));
 	}
 	
 	@ApiOperation(value = "Endpoint para consultar todas as ordens")
 	@GetMapping
-	public ResponseEntity<List<OrdemServico>> consultarTodos() {
+	public ResponseEntity<List<OrdemServicoDTO>> consultarTodos() {
 		return ResponseEntity.ok(ordemServico.consultarTodos());
 	}
 	
 	@ApiOperation(value = "Endpoint para consultar  uma ordem por ID")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<OrdemServico> consultarPorId(@PathVariable Long id) {
+	public ResponseEntity<OrdemServicoDTO> consultarPorId(@PathVariable Long id) {
 		return ResponseEntity.ok(ordemServico.consultarPorId(id));
 	}
 }

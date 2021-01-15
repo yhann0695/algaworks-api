@@ -30,15 +30,12 @@ public class Cliente implements Serializable{
 	private Long id;
 	
 	@Column(name = "NO_CLIENTE")
-	@NotNull
 	private String nome;
 	
 	@Column(name = "EML_CLIENTE")
-	@NotNull
 	private String email;
 	
 	@Column(name = "TEL_CLIENTE")
-	@NotNull
 	private String telefone;
 	
 	
